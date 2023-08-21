@@ -26,5 +26,5 @@ pip install -r requirements
 
 ### Запуск
 ```bash
-python main.py -p Adobe-Flash-Player-PPAPI
+python main.py -p "Adobe-Flash-Player-PPAPI"
 ```
