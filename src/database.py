@@ -5,7 +5,6 @@ from aiosqlite import Connection, Cursor
 
 
 from src.models import Vulnerability, CVE
-from src.exceptions import AlreadyExists
 
 
 class Database:
@@ -124,4 +123,3 @@ class Database:
                 await db.commit()
             except IntegrityError:
                 await db.rollback()
-                raise AlreadyExists()

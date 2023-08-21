@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 import aiohttp
 
 from src.database import Database
-from src.exceptions import ProductNotFound, AlreadyExists
+from src.exceptions import ProductNotFound
 from src.models import CVE, Vulnerability
 
 BASE_URL = "https://threats.kaspersky.com/en/"
@@ -77,4 +77,3 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     asyncio.run(main(args.product_name))
-    #asyncio.run(main("Adobe-Flash-Player-PPAPI"))
