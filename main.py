@@ -59,15 +59,15 @@ def get_vulnerabilities(raw_html: str) -> list[Vulnerability]:
 async def main(product_name: str):
     db = Database('database.db')
     await db.create_tables()
+    if await db.is_product_exists(product_name=product_name):
+        return print(f'Vulnerabilities for "{product_name}" already exists')
     try:
         vulnerabilities = await fetch_vulnerabilities(product_name)
     except ProductNotFound:
         return print(f'Product "{product_name}" not found')
     for vulnerability in vulnerabilities:
-        try:
-            await db.insert_vulnerability(vulnerability=vulnerability)
-        except AlreadyExists:
-            return print(f'Vulnerability "{vulnerability}" already exists')
+        await db.insert_vulnerability(vulnerability=vulnerability, product_name=product_name)
+    print(f'Vulnerabilities for "{product_name}" inserted successfully')
 
 
 if __name__ == '__main__':
@@ -77,3 +77,4 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     asyncio.run(main(args.product_name))
+    #asyncio.run(main("Adobe-Flash-Player-PPAPI"))
